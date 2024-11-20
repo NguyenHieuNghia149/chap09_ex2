@@ -9,6 +9,11 @@ public class LineItem implements Serializable {
 
     public LineItem() {}
 
+    public LineItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
     public void setProduct(Product product) {
         this.product = product;
     }

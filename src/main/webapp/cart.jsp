@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="styles/main.css" type="text/css"/>
 </head>
 <body>
-<h1 class = "text-2xl">Your Cart</h1>
+<h1 class = "text-2xl text-4xl font-extrabold dark:text-blue py-2">Your Cart</h1>
     <table class="mx-5">
         <tr>
             <th class="px-4 py-2">Quantity</th>
@@ -32,8 +32,9 @@
                 <td class="border px-4 py-2">
                     <form action="cart"   method="post">
                         <input type="hidden" name="productCode" value="<c:out value='${item.product.code}'/>">
-                        <input type="text" name="quantity" value="<c:out value='${item.quantity}'/>" id="quantity">
-                        <input class ="textUpdate" type="submit" value="Update">
+                        <input type="hidden" name="action" value="update">
+                        <input type="text" name="quantity" value="<c:out value='${item.quantity}'/>">
+                        <input class="textUpdate" type="submit" value="Update">
                     </form>
                 </td>
                 <td class="border px-4 py-2"><c:out value="${item.product.description}" /></td>
@@ -43,6 +44,7 @@
                     <form  class = "addCart"  action="cart" method="post">
                         <input type="hidden" name="productCode" value="<c:out value='${item.product.code}'/>">
                         <input type="hidden" name="quantity" value="0">
+                        <input type="hidden" name="action" value="removeItem">
                         <input type="submit" value="Remove item">
                     </form>
                 </td>
@@ -52,14 +54,22 @@
 
 <p class = "my-5"><b>To change the quantity</b>, enter the new quantity and click on the Update button.</p>
 
-<form class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn mx-5 " action="cart" method="post">
+<form class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn mx-5 cursor-pointer " action="cart" method="post">
     <input type="hidden" name="action" value="shop">
         <input type="submit" value="Continue shopping">
 </form>
 
-<form class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded btn mx-5 my-1 " action="checkout" method="post">
+<form class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded btn mx-5 my-1 cursor-pointer" action=cart method="post">
     <input type="hidden" name="action" value="checkout">
     <input type="submit" value="Checkout">
 </form>
+
+<div class="font-bold mx-5 my-1 py-2 px-4 text-lg " style = "color : #FF4545">
+    <c:if test="${not empty message}">
+        <p>
+                ${message}
+        </p>
+    </c:if>
+</div>
 </body>
 </html>

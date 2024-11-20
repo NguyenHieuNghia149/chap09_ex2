@@ -6,11 +6,22 @@
     <title>Murach's Java Servlets and JSP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/main.css" type="text/css"/>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+    <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 </head>
 <body>
-<h1 style = "font-size: 40px;">CD List</h1>
+<h1 class="text-4xl font-extrabold dark:text-blue py-2">CD List</h1>
+
+<form action=cart method="get" >
+    <c:if test="${not empty cookie.emailCookie}">
+        <!-- Use flexbox to align the items in one row -->
+        <div class="flex items-center space-x-4">
+            <p>Welcome, <c:out value="${cookie.emailCookie.value}" />!</p>
+            <input type="hidden" name="action" value="logout">
+            <input style="color: #FF4545" class ="font-bold cursor-pointer" type="submit" value="Log out">
+        </div>
+    </c:if>
+</form>
+
 
 <div class="relative overflow-x-auto">
     <table class="mx-5">
@@ -25,7 +36,8 @@
                 <td class="border px-4 py-2">
                     <form  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  action="cart" method="post">
                     <input type="hidden" name="productCode" value="<c:out value='${product.code}'/>">
-                    <input  type="submit" value="Add To Cart">
+                        <input type="hidden" name="action" value="add">
+                        <input  type="submit" value="Add To Cart">
                 </form></td>
             </tr>
         </c:forEach>
